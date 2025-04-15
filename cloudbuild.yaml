@@ -1,0 +1,10 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'REGION-docker.pkg.dev/PROJECT_ID/REPO_NAME/my-node-app:latest', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'REGION-docker.pkg.dev/PROJECT_ID/REPO_NAME/my-node-app:latest']
+
+images:
+  - 'REGION-docker.pkg.dev/PROJECT_ID/REPO_NAME/my-node-app:latest'
+
