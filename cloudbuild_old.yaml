@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest']
+
+images:
+  - 'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
+
