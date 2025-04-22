@@ -1,5 +1,4 @@
 steps:
-  # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build', '-t',
@@ -7,14 +6,13 @@ steps:
       '.'
     ]
 
-  # Step 2: Push Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
       'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest'
     ]
 
-  # Step 3: Authenticate to GKE
+  # Authenticate to GKE
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
@@ -22,21 +20,13 @@ steps:
       - |
         gcloud container clusters get-credentials stage-cluster --region asia-southeast2 --project carbay-indo
 
-  # Step 4: Apply Kubernetes manifests
+  # Apply the k8s deployment files
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         kubectl apply -f k8s/ --namespace=stage-id
-
-  # ✅ Step 5: Rollout restart to make sure the new image is picked up
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        kubectl rollout restart deployment/my-node-app --namespace=stage-id
 
 images:
   - 'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest'
