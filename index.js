@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  res.send('Hello Khushwant approval need  ====>>> WELCOME TO MY HOME PAGE=====>>> new request from Node.js app on GCP!');
+  res.send('Hello Khushwant approval need for this deployment  ====>>> WELCOME TO MY HOME PAGE=====>>> new request from Node.js app on GCP!');
 });
 
 app.listen(port, () => {
