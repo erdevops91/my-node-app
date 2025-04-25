@@ -22,7 +22,7 @@ steps:
       - |
         gcloud container clusters get-credentials stage-cluster --region asia-southeast2 --project carbay-indo
 
-  # Step 4: Apply Kubernetes manifests (including Ingress, Managed Certificates, Redirect Config)
+  # Step 4: Apply Kubernetes manifests
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
@@ -30,24 +30,13 @@ steps:
       - |
         kubectl apply -f k8s/ --namespace=stage-id
 
-  # Step 5: Rollout restart to make sure the new image is picked up
+  # ✅ Step 5: Rollout restart to make sure the new image is picked up
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         kubectl rollout restart deployment/my-node-app --namespace=stage-id
-
-  # Optional: Step to notify Slack channel (if using Slack integration)
-  # - name: 'gcr.io/cloud-builders/curl'
-  #   args:
-  #     - -X
-  #     - POST
-  #     - -H
-  #     - Content-Type: application/json
-  #     - -d
-  #     - '{"text": "Deployment is successful!"}'
-  #     - https://hooks.slack.com/services/your/slack/webhook
 
 images:
   - 'asia-southeast2-docker.pkg.dev/carbay-indo/my-docker-repo/my-node-app:latest'

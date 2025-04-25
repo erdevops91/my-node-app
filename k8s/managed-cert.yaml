@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: stage-id-cicd-ssl
+  namespace: stage-id
+spec:
+  domains:
+    - pre-api-cicd.oto.com
