@@ -22,7 +22,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: my-node-app-service
+                name: my-node-service
                 port:
                   number: 80
 
