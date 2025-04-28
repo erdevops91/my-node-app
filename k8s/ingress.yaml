@@ -23,6 +23,7 @@ spec:
             backend:
               service:
                 name: my-node-service
+                namespace: stage-id
                 port:
                   number: 80
 
